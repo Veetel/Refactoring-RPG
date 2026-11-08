@@ -158,5 +158,23 @@ public class UnitTests {
         assertNull(p.getAvatarClass());
         assertNull(p.abilities);
     }
+
+    @Test
+    @DisplayName("removeMoney subtracts the amount")
+    void testRemoveMoney() {
+        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        p.removeMoney(30);
+        assertEquals(Integer.valueOf(70), p.money);
+    }
+
+    @Test
+    @DisplayName("removeMoney can bring the money down to exactly 0")
+    void testRemoveAllMoney() {
+        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        p.removeMoney(100);
+        assertEquals(Integer.valueOf(0), p.money);
+    }
+
+    
     
 }
