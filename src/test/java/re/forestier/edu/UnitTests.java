@@ -175,6 +175,12 @@ public class UnitTests {
         assertEquals(Integer.valueOf(0), p.money);
     }
 
-    
+    @Test
+    @DisplayName("addMoney adds the amount")
+    void testAddMoney() {
+        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        p.addMoney(50);
+        assertEquals(Integer.valueOf(150), p.money);
+    }
     
 }
