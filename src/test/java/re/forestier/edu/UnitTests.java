@@ -182,5 +182,26 @@ public class UnitTests {
         p.addMoney(50);
         assertEquals(Integer.valueOf(150), p.money);
     }
+
+    @Test
+    @DisplayName("retrieveLevel : 10, 27, 57 and 111 xp")
+    void testRetrieveLevel() {
+        int[][] xpToLevel = {
+            {0, 1}, {9, 1}, {10, 2}, {26, 2}, {27, 3}, {56, 3}, {57, 4}, {110, 4}, {111, 5}, {5000, 5}
+        };
+        for (int[] pair : xpToLevel) {
+            player p = new player("Florian", "Grognak le barbare", "DWARF", 0, new ArrayList<>());
+            UpdatePlayer.addXp(p, pair[0]);
+            assertEquals(pair[1], p.retrieveLevel(), "xp = " + pair[0]);
+        }
+    }
+
+    @Test
+    @DisplayName("getXp returns the xp gained")
+    void testGetXp() {
+        player p = new player("Florian", "Grognak le barbare", "DWARF", 0, new ArrayList<>());
+        UpdatePlayer.addXp(p, 15);
+        assertEquals(15, p.getXp());
+    }
     
 }
