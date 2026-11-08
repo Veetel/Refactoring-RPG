@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -146,6 +147,16 @@ public class UnitTests {
             return;
         }
         fail("Expected IllegalArgumentException to be thrown");
+    }
+
+    @Test
+    @DisplayName("Unknown class leaves the player uninitialised")
+    void testUnknownClassLeavesFieldsEmpty() {
+        player p = new player("Florian", "Grognak le barbare", "WIZARD", 100, new ArrayList<>());
+
+        assertNull(p.playerName);
+        assertNull(p.getAvatarClass());
+        assertNull(p.abilities);
     }
     
 }
