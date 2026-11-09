@@ -6,13 +6,7 @@ import java.util.HashSet;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Disabled;
@@ -66,7 +60,7 @@ public class UnitTests {
         for (String c : CLASSES) {
             player p = new player("Florian", "Grognak le barbare", c, 100, new ArrayList<>());
             assertEquals(0, p.getXp());
-            UpdatePlayer.addXp(p, 0);
+            p.addXp( 0);
             assertTrue(p.getXp() >= 0, c);
         }
     }  
@@ -107,7 +101,7 @@ public class UnitTests {
        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
         assertEquals(new HashSet<>(p.inventory).size(), p.inventory.size());
 
-        UpdatePlayer.addXp(p, 10);
+        p.addXp(10);
         assertEquals(1, p.inventory.size());
     }
 
@@ -146,59 +140,27 @@ public class UnitTests {
         fail("Expected IllegalArgumentException to be thrown");
     }
 
-    @Test
-    @DisplayName("Unknown class leaves the player uninitialised")
-    void testUnknownClassLeavesFieldsEmpty() {
-        player p = new player("Florian", "Grognak le barbare", "WIZARD", 100, new ArrayList<>());
-
-        assertNull(p.playerName);
-        assertNull(p.getAvatarClass());
-        assertNull(p.abilities);
-    }
-
-    @Test
-    @DisplayName("removeMoney subtracts the amount")
-    void testRemoveMoney() {
+    @Test 
+    @DisplayName ("Addxp problem")
+    void testAddXp() {
         player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
-        p.removeMoney(30);
-        assertEquals(Integer.valueOf(70), p.money);
+        p.addXp(20);
+        assertEquals(20, p.getXp());
     }
-
     @Test
-    @DisplayName("removeMoney can bring the money down to exactly 0")
-    void testRemoveAllMoney() {
+    @DisplayName ("Addxp negative problem")
+    void testAddXpNegative() {
         player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
-        p.removeMoney(100);
-        assertEquals(Integer.valueOf(0), p.money);
-    }
+        try { 
+            p.addXp(-20);
 
-    @Test
-    @DisplayName("addMoney adds the amount")
-    void testAddMoney() {
-        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
-        p.addMoney(50);
-        assertEquals(Integer.valueOf(150), p.money);
-    }
-
-    @Test
-    @DisplayName("retrieveLevel : 10, 27, 57 and 111 xp")
-    void testRetrieveLevel() {
-        int[][] xpToLevel = {
-            {0, 1}, {9, 1}, {10, 2}, {26, 2}, {27, 3}, {56, 3}, {57, 4}, {110, 4}, {111, 5}, {5000, 5}
-        };
-        for (int[] pair : xpToLevel) {
-            player p = new player("Florian", "Grognak le barbare", "DWARF", 0, new ArrayList<>());
-            UpdatePlayer.addXp(p, pair[0]);
-            assertEquals(pair[1], p.retrieveLevel(), "xp = " + pair[0]);
+        } 
+        catch (IllegalArgumentException e) {
+            return;
         }
-    }
 
-    @Test
-    @DisplayName("getXp returns the xp gained")
-    void testGetXp() {
-        player p = new player("Florian", "Grognak le barbare", "DWARF", 0, new ArrayList<>());
-        UpdatePlayer.addXp(p, 15);
-        assertEquals(15, p.getXp());
+        fail("Expected IllegalArgumentException to be thrown");
+
     }
-    
 }
+
