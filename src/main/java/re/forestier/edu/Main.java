@@ -10,10 +10,10 @@ public class Main {
         player firstPlayer = new player("Florian", "Ruzberg de Rivehaute", "DWARF", 200, new ArrayList<>());
         firstPlayer.addMoney(400);
 
-        UpdatePlayer.addXp(firstPlayer, 15);
+        firstPlayer.addXp( 15);
         System.out.println(Affichage.afficherJoueur(firstPlayer));
         System.out.println("------------------");
-        UpdatePlayer.addXp(firstPlayer, 20);
+        firstPlayer.addXp( 20);
         System.out.println(Affichage.afficherJoueur(firstPlayer));
     }
 }

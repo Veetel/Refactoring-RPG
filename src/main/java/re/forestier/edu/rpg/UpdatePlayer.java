@@ -106,27 +106,7 @@ public class UpdatePlayer {
 
 
     
-    public static boolean addXp(player player, int xp) {
-        int currentLevel = player.retrieveLevel();
-        player.xp += xp;
-        int newLevel = player.retrieveLevel();
 
-        if (newLevel != currentLevel) {
-            // Player leveled-up!
-            // Give a random object
-            ;
-            Random random = new Random();
-            player.inventory.add(objectList[random.nextInt(objectList.length - 0) + 0]);
-
-            // Add/upgrade abilities to player
-            HashMap<String, Integer> abilities = abilitiesPerTypeAndLevel().get(player.getAvatarClass()).get(newLevel);
-            abilities.forEach((ability, level) -> {
-                player.abilities.put(ability, abilities.get(ability));
-            });
-            return true;
-        }
-        return false;
-    }
 
     // majFinDeTour met à jour les points de vie
     public static void majFinDeTour(player player) {
