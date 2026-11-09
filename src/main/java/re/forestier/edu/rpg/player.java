@@ -2,6 +2,7 @@ package re.forestier.edu.rpg;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class player {
     public String playerName;
@@ -73,6 +74,29 @@ public class player {
         return this.xp;
     }
 
+
+    public boolean addXp( int xp) {
+        int currentLevel = retrieveLevel();
+        this.xp += xp;
+        int newLevel = retrieveLevel();
+        UpdatePlayer updatePlayer = new UpdatePlayer();
+
+        if (newLevel != currentLevel) {
+            // Player leveled-up!
+            // Give a random object
+            ;
+            Random random = new Random();
+            inventory.add(updatePlayer.objectList[random.nextInt(updatePlayer.objectList.length - 0) + 0]);
+
+            // Add/upgrade abilities to player
+            HashMap<String, Integer> abilities = updatePlayer.abilitiesPerTypeAndLevel().get(this.getAvatarClass()).get(newLevel);
+            abilities.forEach((ability, level) -> {
+                abilities.put(ability, abilities.get(ability));
+            });
+            return true;
+        }
+        return false;
+    }
     /*
     Ингредиенты:
         Для теста:

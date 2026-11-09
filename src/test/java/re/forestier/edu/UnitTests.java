@@ -100,5 +100,12 @@ public class UnitTests {
         }
         fail("Expected IllegalArgumentException to be thrown");
     }
+    @Test 
+    @DisplayName ("Addxp problem")
+    void testAddXp() {
+        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        p.addXp(20);
+        assertThat(p.getXp(), is(20));
+    }
     
 }
