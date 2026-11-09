@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -100,12 +101,28 @@ public class UnitTests {
         }
         fail("Expected IllegalArgumentException to be thrown");
     }
+
     @Test 
     @DisplayName ("Addxp problem")
     void testAddXp() {
         player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
         p.addXp(20);
-        assertThat(p.getXp(), is(20));
+        assertEquals(20, p.getXp());
     }
-    
+    @Test
+    @DisplayName ("Addxp negative problem")
+    void testAddXpNegative() {
+        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        try { 
+            p.addXp(-20);
+
+        } 
+        catch (IllegalArgumentException e) {
+            return;
+        }
+
+        fail("Expected IllegalArgumentException to be thrown");
+
+    }
 }
+
