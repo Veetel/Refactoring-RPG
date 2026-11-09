@@ -17,9 +17,20 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Build, test, and check coverage
+        run: ./gradlew clean build jacocoTestReport
 
-      - name: Run Tests
-        run: ./gradlew test
-              
+      - name: Check coverage
+        run: |
+          if [ -f "build/reports/jacoco/test/jacocoTestReport.csv" ]; then
+            echo "Coverage report found."
+            COVERAGE=$(awk -F, 'NR>1 {sum+=$NF} END {print sum/NR*100}' build/reports/jacoco/test/jacocoTestReport.csv)
+            echo "Coverage: $COVERAGE%"
+            if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+              echo "Code coverage is below the required threshold of 80%."
+              exit 1
+            fi
+          else
+            echo "Coverage report not found."
+            exit 1
+          fi
