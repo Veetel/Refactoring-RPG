@@ -112,7 +112,6 @@ public class UnitTests {
     }
 
     @Test
-    @Disabled 
     @DisplayName ("Impossible to have invalid player type")
     void testInvalidPlayerType() {
         try {
@@ -124,7 +123,6 @@ public class UnitTests {
     }
 
     @Test
-    @Disabled 
     @DisplayName ("Impossible to have invalid player class")
     void testInvalidPlayerClass() {
         try {
@@ -138,7 +136,6 @@ public class UnitTests {
 
 
     @Test 
-    @Disabled 
     @DisplayName ("Impossible to have invalid player name")
     void testInvalidPlayerName() {
         try {
