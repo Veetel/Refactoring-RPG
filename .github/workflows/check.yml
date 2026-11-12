@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - Largeron_Saidane
+      - Largeron
+      - Saidane
 
 jobs:
   check-tests:
