@@ -2,7 +2,7 @@ package re.forestier.edu.rpg;
 
 import java.util.HashMap;
 
-public class Adventurer extends RPGClasse {
+public class Adventurer extends RPGClass {
     
     private HashMap<String,String> Abilities;
 
@@ -22,6 +22,11 @@ public class Adventurer extends RPGClasse {
         }
 
         return out;
+    }
+
+    @Override
+    public void levelUp(){
+        return ;
     }
     
 

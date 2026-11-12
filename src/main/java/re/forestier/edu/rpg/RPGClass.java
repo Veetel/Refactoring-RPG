@@ -2,6 +2,7 @@ package re.forestier.edu.rpg;
 import java.util.HashMap;
 abstract class RPGClass {
 
+    //level sera changé par la classe héritière grâcec à la méthode levelUp()
     private int level;
     private int INT;
     private int ATK;
@@ -10,21 +11,20 @@ abstract class RPGClass {
     private int ALC;
     private int VIS;
 
-    RPGClass() {
+    protected RPGClass() {
         
         this.level = 1;
-        this.INT = 1;
-        this.ATK = 1;
-        this.DEF = 1;
-        this.CHA = 1;
-        this.ALC = 1;
-        this.VIS = 1;
+        this.INT = 0;
+        this.ATK = 0;
+        this.DEF = 0;
+        this.CHA = 0;
+        this.ALC = 0;
+        this.VIS = 0;
     }
 
 
     public abstract String getClassName();
     public abstract String getClassDescription();
-    public abstract void levelUp();
     
     public String getStatsToString(){
         return "INT : " + this.INT + "\n" +
@@ -44,6 +44,12 @@ abstract class RPGClass {
         stats.put("ALC", this.ALC);
         stats.put("VIS", this.VIS);
         return stats;
+    }
+
+    public abstract void levelUp();
+
+    protected void incrementLevel(){
+        this.level++;
     }
 
     

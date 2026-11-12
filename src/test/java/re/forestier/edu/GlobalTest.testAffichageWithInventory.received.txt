@@ -8,6 +8,6 @@ Capacités :
    INT : 2
 
 Inventaire :
-   Combat Edge : Well, that's an edge
+   Rune Staff of Curse : May burn your ennemies... Or yourself. Who knows?
    Potion de soin
    Epée en bois

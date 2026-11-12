@@ -1,6 +1,6 @@
 package re.forestier.edu.rpg;
 
-public class Archer extends RPGClass {
+public final class Archer extends RPGClass {
     
     
 
@@ -8,27 +8,25 @@ public class Archer extends RPGClass {
         super();
         
     }
-    
+
     public Archer(int level) throws IllegalArgumentException {
         super();
         if (level < 1) {
             throw new IllegalArgumentException("Level must be greater than 0");
-        }
-        switch (level) {
-            case 1:
-                setATK(3);
-                setVIS(3);
-                break;
-            default:
-                for (int i = 1; i < level; i++) {
-                    levelUp();
-                }
-                break;
+        }            
+        
+        setATK(3);
+        setVIS(3);
+
+        for (int i = 1; i < level; i++) {
+            levelUp();            
         }
     }
 
+    @Override 
     public void levelUp() {
         int classLevel = super.getLevel();
+        incrementLevel();
        
             if (classLevel%2 == 0){
                 setDEF(getDEF() + 1);
