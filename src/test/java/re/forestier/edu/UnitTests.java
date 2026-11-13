@@ -1,12 +1,12 @@
 package re.forestier.edu;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Disabled;
@@ -161,6 +161,18 @@ public class UnitTests {
 
         fail("Expected IllegalArgumentException to be thrown");
 
+    }
+
+    @Test 
+    @DisplayName ("UpdatePlayer ArcherLevel")
+    void testUpdatePlayerArcherLevel() {
+        player p = new player("Florian", "Grognak le barbare", "ARCHER", 100, new ArrayList<>());
+        p.addXp(20);
+        assertEquals(20, p.getXp());
+        assertEquals("ARCHER", p.getAvatarClass());
+        assertEquals(1, p.retrieveLevel());
+        UpdatePlayer.majFinDeTour(p);
+        assertEquals(100, p.currenthealthpoints);
     }
 }
 

@@ -2,16 +2,17 @@ package re.forestier.edu.rpg;
 
 import java.util.HashMap;
 
-public class Adventurer extends RPGClasse {
+public class Adventurer extends RPGClass {
     
     private HashMap<String,String> Abilities;
 
+    @Override 
     public String getClassName(){
-        return "Aventurier";
+        return "Adventurer";
     }
-
+    @Override 
     public String getClassDescription(){
-        return "La classe par défaut pour tous les nouveaux joueurs";
+        return "The default class for new player";
     }
 
     public String getAbilities(){
@@ -22,6 +23,10 @@ public class Adventurer extends RPGClasse {
         }
 
         return out;
+    }
+
+    @Override
+    protected void updateStatsAfterLevelUp(){
     }
     
 
