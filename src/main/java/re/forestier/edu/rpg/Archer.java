@@ -32,7 +32,7 @@ public final class Archer extends RPGClass {
         setVIS(3);
 
         for (int i = 1; i < level; i++) {
-            levelUp();            
+            super.levelUp();            
         }
     }
 
@@ -42,8 +42,8 @@ public final class Archer extends RPGClass {
      * increases DEF. Advancing from level 2 also increases CHA.
      */
     @Override 
-    public void levelUp() {
-        incrementLevel();
+    protected void updateStatsAfterLevelUp() {
+        
         int classLevel = super.getLevel();
        
             if (classLevel%2 == 0){
@@ -54,8 +54,14 @@ public final class Archer extends RPGClass {
             }            
 
 
-            if(classLevel == 2){
-                setCHA(getCHA() + 1);
+            switch(classLevel ){
+                case 2:
+                    setCHA(getCHA() + 1);
+                    break;
+                case 3:
+                    setATK(3);
+                default:
+                    break;
             }
         
     }

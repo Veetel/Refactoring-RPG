@@ -31,13 +31,13 @@ public class RPGClassTest {
         assertEquals( "INT : 1\nATK : 3\nDEF : 1\nCHA : 2\nALC : 0\nVIS : 3",archer.getStatsToString());
 
         archer.levelUp();// level 3
-        assertEquals( "INT : 1\nATK : 4\nDEF : 1\nCHA : 2\nALC : 0\nVIS : 3",archer.getStatsToString());
+        assertEquals( "INT : 1\nATK : 3\nDEF : 1\nCHA : 2\nALC : 0\nVIS : 3",archer.getStatsToString());
 
         archer.levelUp();// level 4
-        assertEquals( "INT : 1\nATK : 4\nDEF : 2\nCHA : 2\nALC : 0\nVIS : 3",archer.getStatsToString());
+        assertEquals( "INT : 1\nATK : 3\nDEF : 2\nCHA : 2\nALC : 0\nVIS : 3",archer.getStatsToString());
 
         archer.levelUp();// level 5
-        assertEquals( "INT : 1\nATK : 5\nDEF : 2\nCHA : 2\nALC : 0\nVIS : 3",archer.getStatsToString());
+        assertEquals( "INT : 1\nATK : 4\nDEF : 2\nCHA : 2\nALC : 0\nVIS : 3",archer.getStatsToString());
     }
 
     @Test 

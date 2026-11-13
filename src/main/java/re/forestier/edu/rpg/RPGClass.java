@@ -40,7 +40,9 @@ abstract class RPGClass {
     //----------------- Abstract methods ----------------
     /** @return the name of this character class */
     public abstract String getClassName();
-
+    
+    protected abstract void updateStatsAfterLevelUp();
+    
     /** @return a description of this character class */
     public abstract String getClassDescription();
     
@@ -78,7 +80,10 @@ abstract class RPGClass {
     /**
      * Applies the progression defined by the subclass when the character levels up.
      */
-    public abstract void levelUp();
+    public final void levelUp(){
+        incrementLevel();
+        updateStatsAfterLevelUp();
+    };
 
     /** Increments the current level by one. */
     protected void incrementLevel(){
