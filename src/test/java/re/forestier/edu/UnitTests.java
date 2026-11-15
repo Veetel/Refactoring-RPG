@@ -14,27 +14,27 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import re.forestier.edu.rpg.UpdatePlayer;
-import re.forestier.edu.rpg.player;
+import re.forestier.edu.rpg.Player;
 
 public class UnitTests {
 
     private static final String[] CLASSES = {"ADVENTURER", "ARCHER", "DWARF"};
     
-    private player newPlayer(String avatarClass, int money) {
-        return new player("Florian", "Grognak le barbare", avatarClass, money, new ArrayList<>());
+    private Player newPlayer(String avatarClass, int money) {
+        return new Player("Florian", "Grognak le barbare", avatarClass, money, new ArrayList<>());
     }
 
     @Test
     @DisplayName("Sample test")
     void testPlayerName() {
-        player player = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        Player player = new Player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
         assertThat(player.playerName, is("Florian"));
     }
 
     @Test
     @DisplayName("Impossible to have negative money")
     void testNegativeMoney() {
-        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        Player p = new Player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
 
         try {
             p.removeMoney(200);
@@ -48,7 +48,7 @@ public class UnitTests {
     @DisplayName ("Impossible to have negative health")
     void testNegativeHealth() {
         for (String c : CLASSES) {
-            player p = new player("Florian", "Grognak le barbare", c, 100, new ArrayList<>());
+            Player p = new Player("Florian", "Grognak le barbare", c, 100, new ArrayList<>());
             assertTrue(p.healthpoints >= 0, c);
             assertTrue(p.currenthealthpoints >= 0, c);
         }
@@ -58,7 +58,7 @@ public class UnitTests {
     @DisplayName ("Impossible to have negative XP")
     void testNegativeXP() {
         for (String c : CLASSES) {
-            player p = new player("Florian", "Grognak le barbare", c, 100, new ArrayList<>());
+            Player p = new Player("Florian", "Grognak le barbare", c, 100, new ArrayList<>());
             assertEquals(0, p.getXp());
             p.addXp( 0);
             assertTrue(p.getXp() >= 0, c);
@@ -70,7 +70,7 @@ public class UnitTests {
     @DisplayName ("Impossible to have negative level")
     void testNegativeLevel() {
         for (String c : CLASSES) {
-            player p = new player("Florian", "Grognak le barbare", c, 100, new ArrayList<>());
+            Player p = new Player("Florian", "Grognak le barbare", c, 100, new ArrayList<>());
             assertTrue(p.retrieveLevel() >= 1, c);
         }
     }
@@ -79,7 +79,7 @@ public class UnitTests {
     @DisplayName ("Impossible to have negative inventory size")
     void testNegativeInventorySize() {
         ArrayList<String> items = new ArrayList<>();
-        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, items);
+        Player p = new Player("Florian", "Grognak le barbare", "ADVENTURER", 100, items);
         assertEquals(0, p.inventory.size());
 
         items.add("Holy Elixir");
@@ -90,7 +90,7 @@ public class UnitTests {
     @DisplayName ("Impossible to have negative stats")
     void testNegativeStats() {
         for (String c : CLASSES) {
-            player p = new player("Florian", "Grognak le barbare", c, 100, new ArrayList<>());
+            Player p = new Player("Florian", "Grognak le barbare", c, 100, new ArrayList<>());
             p.abilities.forEach((name, value) -> assertTrue(value > 0, c + " " + name));
         }
     }
@@ -98,7 +98,7 @@ public class UnitTests {
     @Test
     @DisplayName ("Impossible to have duplicate items in inventory")
     void testDuplicateItemsInInventory() {
-       player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+       Player p = new Player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
         assertEquals(new HashSet<>(p.inventory).size(), p.inventory.size());
 
         p.addXp(10);
@@ -109,7 +109,7 @@ public class UnitTests {
     @DisplayName ("Impossible to have invalid player type")
     void testInvalidPlayerType() {
         try {
-            player p = new player("Florian", "Grognak le barbare", "INVALID_TYPE", 100, new ArrayList<>());
+            Player p = new Player("Florian", "Grognak le barbare", "INVALID_TYPE", 100, new ArrayList<>());
         } catch (IllegalArgumentException e) {
             return; 
         }
@@ -120,7 +120,7 @@ public class UnitTests {
     @DisplayName ("Impossible to have invalid player class")
     void testInvalidPlayerClass() {
         try {
-            player p = new player("Florian", "Grognak le barbare", "INVALID_CLASS", 100, new ArrayList<>());
+            Player p = new Player("Florian", "Grognak le barbare", "INVALID_CLASS", 100, new ArrayList<>());
         } catch (IllegalArgumentException e) {
             return;
 
@@ -133,7 +133,7 @@ public class UnitTests {
     @DisplayName ("Impossible to have invalid player name")
     void testInvalidPlayerName() {
         try {
-            player p = new player("", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+            Player p = new Player("", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
         } catch (IllegalArgumentException e) {
             return;
         }
@@ -143,14 +143,14 @@ public class UnitTests {
     @Test 
     @DisplayName ("Addxp problem")
     void testAddXp() {
-        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        Player p = new Player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
         p.addXp(20);
         assertEquals(20, p.getXp());
     }
     @Test
     @DisplayName ("Addxp negative problem")
     void testAddXpNegative() {
-        player p = new player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        Player p = new Player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
         try { 
             p.addXp(-20);
 
@@ -166,7 +166,7 @@ public class UnitTests {
     @Test 
     @DisplayName ("UpdatePlayer ArcherLevel")
     void testUpdatePlayerArcherLevel() {
-        player p = new player("Florian", "Grognak le barbare", "ARCHER", 100, new ArrayList<>());
+        Player p = new Player("Florian", "Grognak le barbare", "ARCHER", 100, new ArrayList<>());
         p.addXp(20);
         assertEquals(20, p.getXp());
         assertEquals("ARCHER", p.getAvatarClass());

@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class player {
+public class Player {
     public String playerName;
     public String Avatar_name;
     private String AvatarClass;
 
     public Integer money;
-    private Float __real_money__;
+    
+    
 
 
-    public int level;
+    
     public int healthpoints;
     public int currenthealthpoints;
     protected int xp;
@@ -21,10 +22,15 @@ public class player {
 
     public HashMap<String, Integer> abilities;
     public ArrayList<String> inventory;
-    public player(String playerName, String avatar_name, String avatarClass, int money, ArrayList<String> inventory) {
-        if (!avatarClass.equals("ARCHER") && !avatarClass.equals("ADVENTURER") && !avatarClass.equals("DWARF") ) {
-            return;
+    public Player(String playerName, String avatar_name, String avatarClass, int money, ArrayList<String> inventory) {
+        if (!avatarClass.equals("ARCHER") && !avatarClass.equals("ADVENTURER") && !avatarClass.equals("DWARF")) {
+            throw new IllegalArgumentException("Unknown avatar class: " + avatarClass);
         }
+        if (playerName == null || playerName.isEmpty()) {
+            throw new IllegalArgumentException("Player name can't be empty!");
+        }
+
+        this.playerName = playerName;
 
         this.playerName = playerName;
         Avatar_name = avatar_name;

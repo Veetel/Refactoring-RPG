@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import re.forestier.edu.rpg.Affichage;
 import re.forestier.edu.rpg.UpdatePlayer;
-import re.forestier.edu.rpg.player;
+import re.forestier.edu.rpg.Player;
 
 public class GlobalTest {
 
     @Test
     void testAffichageBase() {
-        player player = new player("Florian", "Gnognak le Barbare", "ADVENTURER", 200, new ArrayList<>());
+        Player player = new Player("Florian", "Gnognak le Barbare", "ADVENTURER", 200, new ArrayList<>());
         player.addXp( 20);
         player.inventory = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class GlobalTest {
     }
     @Test 
     void testAffichageWithInventory() {
-        player player = new player("Florian", "Gnognak le Barbare", "ADVENTURER", 200, new ArrayList<>());
+        Player player = new Player("Florian", "Gnognak le Barbare", "ADVENTURER", 200, new ArrayList<>());
         player.addXp( 20);
         player.inventory.add("Potion de soin");
         player.inventory.add("Epée en bois");
