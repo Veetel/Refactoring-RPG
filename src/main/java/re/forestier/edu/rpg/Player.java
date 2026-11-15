@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Player {
+    // xp needed to reach levels 2, 3, 4 and 5
+    private static final int[] LEVEL_THRESHOLDS = {10, 27, 57, 111};
+
     public String playerName;
     public String Avatar_name;
     private String AvatarClass;
@@ -32,7 +35,6 @@ public class Player {
 
         this.playerName = playerName;
 
-        this.playerName = playerName;
         Avatar_name = avatar_name;
         AvatarClass = avatarClass;
         this.money = Integer.valueOf(money);
@@ -44,36 +46,25 @@ public class Player {
         return AvatarClass;
     }
 
-    public void removeMoney(int amount) throws IllegalArgumentException {
-        if (money - amount < 0) {
-            throw new IllegalArgumentException("Player can't have a negative money!");
-        }
-
-        money = Integer.parseInt(money.toString()) - amount;
+    public void removeMoney(int amount) {
+    if (money - amount < 0) {
+        throw new IllegalArgumentException("Player can't have a negative money!");
     }
+    money -= amount;
+    }
+
     public void addMoney(int amount) {
-        var value = Integer.valueOf(amount);
-        money = money + (value != null ? value : 0);
+    money += amount;
     }
     public int retrieveLevel() {
-        // (lvl-1) * 10 + round((lvl * xplvl-1)/4)
-        HashMap<Integer, Integer> levels = new HashMap<>();
-        levels.put(2,10); // 1*10 + ((2*0)/4)
-        levels.put(3,27); // 2*10 + ((3*10)/4)
-        levels.put(4,57); // 3*10 + ((4*27)/4)
-        levels.put(5,111); // 4*10 + ((5*57)/4)
-        //TODO : ajouter les prochains niveaux
-
-        if (xp < levels.get(2)) {
-            return 1;
+        int level = 1;
+        for (int threshold : LEVEL_THRESHOLDS) {
+            // one level gained for each threshold reached
+            if (xp >= threshold) {
+                level++;
+            }
         }
-        else if (xp < levels.get(3)) {return 2;
-        }
-        if (xp < levels.get(4)) {
-            return 3;
-        }
-        if (xp < levels.get(5)) return 4;
-        return 5;
+        return level;
     }
 
     public int getXp() {
