@@ -81,27 +81,30 @@ public class Player {
     }
 
 
-    public boolean addXp( int xp) {
+    public boolean addXp(int xp) {
+        if (xp < 0) {
+            throw new IllegalArgumentException("XP can't be negative!");
+        }
+
         int currentLevel = retrieveLevel();
         this.xp += xp;
         int newLevel = retrieveLevel();
-        UpdatePlayer updatePlayer = new UpdatePlayer();
 
-        if (newLevel != currentLevel) {
-            // Player leveled-up!
-            // Give a random object
-            ;
-            Random random = new Random();
-            inventory.add(updatePlayer.objectList[random.nextInt(updatePlayer.objectList.length - 0) + 0]);
-
-            // Add/upgrade abilities to player
-            HashMap<String, Integer> abilities = updatePlayer.abilitiesPerTypeAndLevel().get(this.getAvatarClass()).get(newLevel);
-            abilities.forEach((ability, level) -> {
-                abilities.put(ability, abilities.get(ability));
-            });
-            return true;
+        if (newLevel == currentLevel) {
+            return false;
         }
-        return false;
+
+        // Player leveled-up: give a random object
+        Random random = new Random();
+        inventory.add(UpdatePlayer.objectList[random.nextInt(UpdatePlayer.objectList.length)]);
+
+        // Upgrade abilities
+        HashMap<String, Integer> newAbilities = UpdatePlayer.abilitiesPerTypeAndLevel().get(this.getAvatarClass()).get(newLevel);
+        for (String ability : newAbilities.keySet()) {
+            this.abilities.put(ability, newAbilities.get(ability));
+        }
+    
+        return true;
     }
     /*
     Ингредиенты:
