@@ -14,17 +14,13 @@ public class Player {
 
     public Integer money;
     
-    
-
-
-    
     public int healthpoints;
     public int currenthealthpoints;
     protected int xp;
 
-
     public HashMap<String, Integer> abilities;
     public ArrayList<String> inventory;
+
     public Player(String playerName, String avatar_name, String avatarClass, int money, ArrayList<String> inventory) {
         if (!avatarClass.equals("ARCHER") && !avatarClass.equals("ADVENTURER") && !avatarClass.equals("DWARF")) {
             throw new IllegalArgumentException("Unknown avatar class: " + avatarClass);
@@ -34,7 +30,6 @@ public class Player {
         }
 
         this.playerName = playerName;
-
         Avatar_name = avatar_name;
         AvatarClass = avatarClass;
         this.money = Integer.valueOf(money);
@@ -47,15 +42,16 @@ public class Player {
     }
 
     public void removeMoney(int amount) {
-    if (money - amount < 0) {
-        throw new IllegalArgumentException("Player can't have a negative money!");
-    }
-    money -= amount;
-    }
+        if (money - amount < 0) {
+            throw new IllegalArgumentException("Player can't have a negative money!");
+        }
+        money -= amount;
+        }
 
     public void addMoney(int amount) {
-    money += amount;
-    }
+        money += amount;
+        }
+    
     public int retrieveLevel() {
         int level = 1;
         for (int threshold : LEVEL_THRESHOLDS) {
@@ -70,7 +66,6 @@ public class Player {
     public int getXp() {
         return this.xp;
     }
-
 
     public boolean addXp(int xp) {
         if (xp < 0) {
@@ -97,15 +92,5 @@ public class Player {
     
         return true;
     }
-    /*
-    Ингредиенты:
-        Для теста:
-
-            250 г муки
-            125 г сливочного масла (холодное)
-            70 г сахара
-            1 яйцо
-            1 щепотка соли
-     */
 
 }
