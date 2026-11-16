@@ -43,6 +43,9 @@ abstract class RPGClass {
     
     protected abstract void updateStatsAfterLevelUp();
 
+    /**
+     * initialize the stats to level 1
+     */
     protected abstract void initializeBaseStats();
     
     /** @return a description of this character class */
