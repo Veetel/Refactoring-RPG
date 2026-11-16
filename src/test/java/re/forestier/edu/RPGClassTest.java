@@ -1,11 +1,15 @@
 package re.forestier.edu;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import re.forestier.edu.rpg.Archer;
+import re.forestier.edu.rpg.UpdatePlayer;
+import re.forestier.edu.rpg.player;
 
 public class RPGClassTest {
     
@@ -43,7 +47,9 @@ public class RPGClassTest {
     @Test 
     @DisplayName ("Test getStats and legacy compatibility for Archer ")
     void testArcherCompatibility(){
-
+        player p = new player("Florian", "Ragnar le breton","Archer", 0, new ArrayList<>());
+        Archer archer = new Archer(1);
+        assertEquals(UpdatePlayer.abilitiesPerTypeAndLevel().get("Archer"), archer.abilitiesPerTypeAndLevel());
         
     }
     
