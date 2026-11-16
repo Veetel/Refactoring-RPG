@@ -44,6 +44,22 @@ public class RPGClassTest {
         assertEquals( "INT : 1\nATK : 4\nDEF : 2\nCHA : 2\nALC : 0\nVIS : 3",archer.getStatsToString());
     }
 
+    @Test
+    @DisplayName("Reset and level history preserve the Archer's current level")
+    void testArcherResetAndLevelHistory() {
+        Archer archer = new Archer(3);
+
+        var abilities = archer.abilitiesPerTypeAndLevel();
+        assertEquals(4, abilities.get(5).get("ATK"));
+        assertEquals("INT : 1\nATK : 3\nDEF : 1\nCHA : 2\nALC : 0\nVIS : 3", archer.getStatsToString());
+
+        archer.levelUp();
+        assertEquals("INT : 1\nATK : 3\nDEF : 2\nCHA : 2\nALC : 0\nVIS : 3", archer.getStatsToString());
+
+        archer.reset();
+        assertEquals("INT : 1\nATK : 3\nDEF : 0\nCHA : 1\nALC : 0\nVIS : 3", archer.getStatsToString());
+    }
+
     @Test 
     @DisplayName ("Test getStats and legacy compatibility for Archer ")
     void testArcherCompatibility(){
