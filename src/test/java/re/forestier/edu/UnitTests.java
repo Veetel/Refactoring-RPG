@@ -9,9 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import java.util.Map;
 
 import re.forestier.edu.rpg.UpdatePlayer;
 import re.forestier.edu.rpg.Player;
@@ -174,5 +175,48 @@ public class UnitTests {
         UpdatePlayer.majFinDeTour(p);
         assertEquals(100, p.currenthealthpoints);
     }
+
+    @Test
+    @DisplayName("removeMoney subtracts the amount")
+    void testRemoveMoney() {
+        Player p = new Player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        p.removeMoney(30);
+        assertEquals(Integer.valueOf(70), p.money);
+    }
+
+    @Test
+    @DisplayName("removeMoney can bring the money down to exactly 0")
+    void testRemoveAllMoney() {
+        Player p = new Player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        p.removeMoney(100);
+        assertEquals(Integer.valueOf(0), p.money);
+    }
+
+    @Test
+    @DisplayName("addMoney adds the amount")
+    void testAddMoney() {
+        Player p = new Player("Florian", "Grognak le barbare", "ADVENTURER", 100, new ArrayList<>());
+        p.addMoney(50);
+        assertEquals(Integer.valueOf(150), p.money);
+    }
+
+    @Test
+    @DisplayName("addXp returns true only when the player gains a level")
+    void testAddXpReturnsLevelUp() {
+        Player p = new Player("Florian", "Grognak le barbare", "DWARF", 100, new ArrayList<>());
+        assertFalse(p.addXp(9));   // 9 xp : still level 1
+        assertTrue(p.addXp(1));    // 10 xp : level 2
+        assertFalse(p.addXp(1));   // 11 xp : still level 2
+    }
+
+    @Test
+    @DisplayName("Level up applies the new abilities and gives one item")
+    void testLevelUpAppliesAbilities() {
+        Player p = new Player("Florian", "Grognak le barbare", "DWARF", 100, new ArrayList<>());
+        p.addXp(10);
+        assertEquals(Map.of("ALC", 5, "INT", 1, "ATK", 3, "DEF", 1), p.abilities);
+        assertEquals(1, p.inventory.size());
+    }
+
 }
 
