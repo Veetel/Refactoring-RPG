@@ -42,6 +42,8 @@ abstract class RPGClass {
     public abstract String getClassName();
     
     protected abstract void updateStatsAfterLevelUp();
+
+    protected abstract void initializeBaseStats();
     
     /** @return a description of this character class */
     public abstract String getClassDescription();
@@ -75,6 +77,51 @@ abstract class RPGClass {
         stats.put("ALC", this.ALC);
         stats.put("VIS", this.VIS);
         return stats;
+    }
+
+    /**
+     * Format the abilities in HashMap, the implementation use try/finally to protect the initial state
+     * @return a hashMap to coincide with legacy implementation of updarte player
+     *  
+     */
+    public HashMap<Integer, HashMap<String,Integer>> abilitiesPerTypeAndLevel(){
+        HashMap<Integer, HashMap<String,Integer>> result = new HashMap<>();
+        int originalLevel = this.level;
+
+        
+        try {
+            reset();
+            for (int currentLevel = 1; currentLevel <= 5; currentLevel++) {
+                HashMap<String, Integer> abilities = this.getStats();
+                abilities.values().removeIf(value -> value == 0);
+                result.put(currentLevel, abilities);
+
+                if (currentLevel < 5) {
+                    levelUp();
+                }
+            }
+        } finally {
+            reset();
+            for (int currentLevel = 1; currentLevel < originalLevel; currentLevel++) {
+                levelUp();
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Restores this character to level 1 and its class-specific starting stats.
+     */
+    public final void reset() {
+        this.level = 1;
+        this.INT = 0;
+        this.ATK = 0;
+        this.DEF = 0;
+        this.CHA = 0;
+        this.ALC = 0;
+        this.VIS = 0;
+        initializeBaseStats();
     }
 
     /**
