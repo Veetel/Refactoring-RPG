@@ -25,15 +25,20 @@ public final class Archer extends RPGClass {
         super();
         if (level < 1) {
             throw new IllegalArgumentException("Level must be greater than 0");
-        }            
-        setINT(1);
-        setCHA(1);
-        setATK(3);
-        setVIS(3);
+        }
+        reset();
 
         for (int i = 1; i < level; i++) {
             super.levelUp();            
         }
+    }
+
+    @Override
+    protected void initializeBaseStats() {
+        setINT(1);
+        setCHA(1);
+        setATK(3);
+        setVIS(3);
     }
 
     /**

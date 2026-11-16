@@ -26,6 +26,10 @@ public class Adventurer extends RPGClass {
     }
 
     @Override
+    protected void initializeBaseStats(){
+    }
+
+    @Override
     protected void updateStatsAfterLevelUp(){
     }
     
